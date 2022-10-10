@@ -13,7 +13,7 @@ public class TestRepository {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
-    public String getRandomName(){
+    public List<Student> getAllStudents(){
         String query = "SELECT sIme as ime, prezime, sId as id FROM student";
 
         List<Student> students = jdbcTemplate.query(
@@ -21,6 +21,6 @@ public class TestRepository {
                 BeanPropertyRowMapper.newInstance(Student.class)
         );
 
-        return students.get(0).getIme();
+        return students;
     }
 }

@@ -1,5 +1,7 @@
 package com.example.demo_db.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Student {
     private String ime;
     private String prezime;
