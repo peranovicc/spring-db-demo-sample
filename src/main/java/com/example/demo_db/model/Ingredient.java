@@ -1,8 +1,15 @@
 package com.example.demo_db.model;
 
+import javax.persistence.Entity;
+import javax.persistence.Id;
+import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table(name = "Ingredients")
+// select * from ingredient
 public class Ingredient {
+    @Id
     private UUID id;
     private String name;
     private double currentPrice;
