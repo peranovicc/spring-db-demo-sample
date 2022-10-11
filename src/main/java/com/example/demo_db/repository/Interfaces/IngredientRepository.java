@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface IngredientRepository {
     List<Ingredient> getAllIngredients();
+
+    void insertIngredient(Ingredient ingredient);
 }

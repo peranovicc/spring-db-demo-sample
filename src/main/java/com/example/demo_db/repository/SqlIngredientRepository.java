@@ -28,4 +28,14 @@ public class SqlIngredientRepository implements IngredientRepository {
                 BeanPropertyRowMapper.newInstance(Ingredient.class)
         );
     }
+
+    @Override
+    public void insertIngredient(Ingredient ingredient) {
+        String action = "INSERT INTO Ingredients ([id], [name], currentPrice) VALUES ('"
+                + ingredient.getId() + "','" + ingredient.getName() + "','" + ingredient.getCurrentPrice() + "')";
+
+        jdbcTemplate.execute(action);
+    }
+
+
 }

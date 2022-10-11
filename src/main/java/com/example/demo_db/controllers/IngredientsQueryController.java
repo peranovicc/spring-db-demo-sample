@@ -5,6 +5,8 @@ import com.example.demo_db.repository.Interfaces.IngredientRepository;
 import com.example.demo_db.repository.Interfaces.TestJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,24 +24,24 @@ public class IngredientsQueryController {
         this.testJpaRepository = testJpaRepository;
     }
 
-    // /api/ingredients
     @GetMapping("/api/ingredients")
     public List<Ingredient> getAllIngredients(){
         return ingredientRepository.getAllIngredients();
     }
 
-    @GetMapping("/api/testjpa/{name}")
-    public List<Ingredient> getIngredientsByName(@PathVariable String name){
-        return testJpaRepository.findByNameStartsWith(name);
-    }
-
-    // @GetMapping("/api/testjpa/price/{price}")
-    // public List<Ingredient> getIngredientsCheaperThan(@PathVariable double price){
-    //     return testJpaRepository.getIngredientsCheaperThan(price);
-    // }
-
-    @GetMapping("/api/testjpa/price/{price}/{name}")
-    public List<Ingredient> getIngredientsCheaperThan(@PathVariable double price, @PathVariable String name){
-        return testJpaRepository.findByCurrentPriceLessThanAndNameStartsWith(price, name);
+    // 63AD3944-E558-4D76-8971-D4F00B71C434
+    @GetMapping("/api/ingredients/{id}")
+    public ResponseEntity<Ingredient> getIngredientById(@PathVariable(value = "id") UUID id){
+        // var maybeIngredient = testJpaRepository.findById(id);
+        //
+        // if(maybeIngredient.isEmpty()){
+        //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        // }
+        //
+        // return ResponseEntity.status(HttpStatus.OK).body(maybeIngredient.get());
+        if(!testJpaRepository.existsById(id)){
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(testJpaRepository.findById(id).get());
     }
 }
