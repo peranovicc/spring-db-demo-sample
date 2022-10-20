@@ -12,11 +12,20 @@ import java.util.List;
 
 @Repository
 public interface TestJpaRepository extends JpaRepository<Ingredient, UUID> {
-    // Optional<Ingredient> findById(UUID id);
+    Optional<Ingredient> findById(UUID id);
 
     List<Ingredient> findByNameStartsWith(String name);
 
     List<Ingredient> findByCurrentPriceLessThanAndNameStartsWith(double currentPrice, String name);
+
+    // @Query("SELECT new java.lang.Boolean(COUNT(u) > 0) FROM Customer u WHERE u.customer_type=?1")
+    // Boolean getCountOfNewUsers(String customertype);
+
+    @Query(value = "SELECT COUNT(*) FROM Ingredients WHERE name=:name", nativeQuery = true)
+    Integer isDuplicateName(@Param("name") String name);
+
+
+
 
     // JPA query
     // @Query("SELECT i FROM Ingredients i WHERE currentPrice < :price")
@@ -25,4 +34,6 @@ public interface TestJpaRepository extends JpaRepository<Ingredient, UUID> {
     // Native query
     @Query(value = "SELECT * FROM Ingredients WHERE currentPrice < :price AND name like :name%", nativeQuery = true)
     List<Ingredient> getIngredientsCheaperThan(@Param("price") double x, @Param("name") String y);
+
+
 }

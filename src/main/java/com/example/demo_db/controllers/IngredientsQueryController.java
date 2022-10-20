@@ -43,6 +43,22 @@ public class IngredientsQueryController {
         return ingredientRepository.getAllIngredients();
     }
 
+    // 63AD3944-E558-4D76-8971-D4F00B71C434
+    @GetMapping("/api/ingredients/{id}")
+    public ResponseEntity<Ingredient> getIngredientById(@PathVariable(value = "id") UUID id) {
+        // var maybeIngredient = testJpaRepository.findById(id);
+        //
+        // if(maybeIngredient.isEmpty()){
+        //     return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        // }
+        //
+        // return ResponseEntity.status(HttpStatus.OK).body(maybeIngredient.get());
+        if (!testJpaRepository.existsById(id)) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(testJpaRepository.findById(id).get());
+    }
+
     @GetMapping("/api/testjpa/{name}")
     public List<Ingredient> getIngredientsByName(@PathVariable String name){
         return testJpaRepository.findByNameStartsWith(name);

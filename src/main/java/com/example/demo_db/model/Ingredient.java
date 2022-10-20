@@ -1,6 +1,7 @@
 package com.example.demo_db.model;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
@@ -15,6 +16,11 @@ public class Ingredient implements Comparable<Ingredient> {
     private double currentPrice;
 
     public Ingredient() {
+    }
+
+    public Ingredient(String name, double currentPrice) {
+        this.name = name;
+        this.currentPrice = currentPrice;
     }
 
     public Ingredient(UUID id, String name, double currentPrice) {
