@@ -8,7 +8,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "Ingredients")
 // select * from ingredient
-public class Ingredient {
+public class Ingredient implements Comparable<Ingredient> {
     @Id
     private UUID id;
     private String name;
@@ -54,5 +54,10 @@ public class Ingredient {
                 ", name='" + name + '\'' +
                 ", currentPrice=" + currentPrice +
                 '}';
+    }
+
+    @Override
+    public int compareTo(Ingredient o) {
+        return (int)(this.getCurrentPrice() - o.getCurrentPrice());
     }
 }
